@@ -10,7 +10,7 @@ page.open(url, function(status) {
                 return getChildElements();
             });
 
-            fs.write(page.title + '.html', title, 'w');
+            fs.write('example-php.html', title, 'w');
 
             page.viewportSize = { width: 1920, height: 1080 };
             page.paperSize = {
@@ -21,7 +21,7 @@ page.open(url, function(status) {
             };
 
             page.settings.dpi = "120";
-            page.render(page.title + '.jpeg');
+            page.render('example-php.jpeg');
 
             phantom.exit();
         }
