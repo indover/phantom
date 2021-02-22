@@ -5,33 +5,26 @@ var fs = require('fs'),
     // url = 'https://www.ukr.net'
     // url = 'https://sputniknews.lt/baltic/20201124/13777231/JAV-specialij-pajg-lktuvai-vykdys-pratybas-danguje-vir-Estijos.html'
 page.open(url, function(status) {
-    console.log('start');
     if (status === "success") {
-        console.log('success');
         if (page.injectJs("popups.js")) {
-            console.log('injecting');
             var title = page.evaluate(function() {
-                return returnTitle();
+                return getChildElements();
             });
 
-            fs.write('4-1-' + page.title + '.html', title, 'w');
+            fs.write(page.title + '.html', title, 'w');
 
             page.viewportSize = { width: 1920, height: 1080 };
-            // page.paperSize = {
-            //     format: 'Letter',
-            //     orientation: 'portrait',
-            //     margin: {left:"2.5cm", right:"2.5cm", top:"1cm", bottom:"1cm"},
-            //
-            // };
+            page.paperSize = {
+                format: 'Letter',
+                orientation: 'portrait',
+                margin: {left:"1.5cm", right:"1.5cm", top:"1cm", bottom:"1cm"},
 
-            // page.settings.dpi = "120";
+            };
 
-            // page.content = fs.read('11111.jpeg');
+            page.settings.dpi = "120";
+            page.render(page.title + '.jpeg');
+
             phantom.exit();
-            // window.setTimeout(function () {
-
-            // }, 2000);
-            // phantom.exit();
         }
     }
 });
